@@ -1,0 +1,15 @@
+# Maven
+**/target/
+.mvn/wrapper/maven-wrapper.jar
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+
+# Environment / secrets
+.env
+.env.*.local

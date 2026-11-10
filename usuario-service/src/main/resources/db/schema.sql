@@ -1,0 +1,11 @@
+CREATE TABLE usuario (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    nome NVARCHAR(120) NOT NULL,
+    data_nasc DATE NOT NULL,
+    cpf VARCHAR(11) NOT NULL UNIQUE,
+    genero NVARCHAR(30) NULL,
+    telefone VARCHAR(20) NULL,
+    endereco NVARCHAR(255) NULL,
+    email NVARCHAR(254) NOT NULL UNIQUE,
+    senha NVARCHAR(255) NOT NULL
+);
