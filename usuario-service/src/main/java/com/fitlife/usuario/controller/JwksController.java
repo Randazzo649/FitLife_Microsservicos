@@ -1,0 +1,1 @@
+package com.fitlife.usuario.controller;import com.fitlife.usuario.security.JwtKeyService;import java.util.Map;import org.springframework.web.bind.annotation.*;@RestController public class JwksController{private final JwtKeyService jwt;public JwksController(JwtKeyService jwt){this.jwt=jwt;}@GetMapping("/oauth2/jwks")public Map<String,Object> keys(){return jwt.jwks();}}

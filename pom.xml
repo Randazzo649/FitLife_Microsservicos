@@ -20,6 +20,8 @@
     <modules>
         <module>usuario-service</module>
         <module>treino-service</module>
+        <module>personal-service</module>
+        <module>comunidade-service</module>
     </modules>
 
     <properties>

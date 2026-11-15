@@ -1,15 +1,7 @@
-# Treino Service
+# treino-service
 
-Estrutura inicial independente para o microsservico de treinos do FitLife. Utiliza Spring Boot e possui a dependencia Spring Data MongoDB, com configuracao por `MONGODB_URI`.
+Serviço REST Spring Boot com JDBC e MySQL; sem JPA.
 
-A estrutura segue Ports and Adapters. O modelo de treino, os endpoints CRUD, os eventos do Azure Service Bus e os testes unitarios ainda precisam ser definidos pelo grupo conforme os requisitos funcionais do FitLife. Esta base nao cria campos ou regras de negocio presumidos.
+Banco padrão: `FitLife_Treinos`. O endpoint PUT substitui a lista de sessões do usuário em uma transação, evitando apagar os dados caso a gravação falhe.
 
-## Executar
-
-Configure `MONGODB_URI` conforme `.env.example` e execute:
-
-```bash
-mvn spring-boot:run
-```
-
-A porta padrao e 8082. Swagger: `http://localhost:8082/swagger-ui.html`.
+Porta local padrão: veja `src/main/resources/application.yml`. O API Gateway é o ponto de entrada da aplicação.
