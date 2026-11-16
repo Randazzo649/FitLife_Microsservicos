@@ -4,10 +4,26 @@ spring:
   application:
     name: treino-service
   datasource:
-    url: ${DB_URL:jdbc:mysql://localhost:3306/FitLife_Treinos?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
-    username: ${DB_USERNAME:root}
+    url: "${DB_URL:jdbc:sqlserver://localhost:1433;databaseName=FitLife_Treinos;encrypt=true;trustServerCertificate=true}"
+    username: ${DB_USERNAME:sa}
     password: ${DB_PASSWORD:}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   sql:
     init:
-      mode: ${SQL_INIT_MODE:always}
+      mode: never
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI:http://localhost:8091}
+          jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8091/oauth2/jwks}
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+fitlife:
+  servicebus:
+    enabled: ${SERVICEBUS_ENABLED:false}
+    send-connection-string: ${SERVICEBUS_SEND_CONNECTION_STRING:}
+    queue-name: ${SERVICEBUS_QUEUE_NAME:fitlife-treino-eventos}

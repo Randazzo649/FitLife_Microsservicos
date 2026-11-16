@@ -1,0 +1,42 @@
+name: Backend - Build and Tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pom.xml'
+      - 'usuario-service/**'
+      - 'treino-service/**'
+      - 'personal-service/**'
+      - 'comunidade-service/**'
+      - '.github/workflows/backend-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'pom.xml'
+      - 'usuario-service/**'
+      - 'treino-service/**'
+      - 'personal-service/**'
+      - 'comunidade-service/**'
+      - '.github/workflows/backend-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v6
+        with:
+          distribution: microsoft
+          java-version: '21'
+          cache: maven
+
+      - name: Run unit and architecture tests
+        run: mvn -B -ntp test

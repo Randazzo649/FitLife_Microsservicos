@@ -1,5 +1,31 @@
-CREATE TABLE IF NOT EXISTS personal(id BIGINT PRIMARY KEY AUTO_INCREMENT,nome VARCHAR(140) NOT NULL,titulo VARCHAR(180),modalidades VARCHAR(300),disponibilidade VARCHAR(180),cidade VARCHAR(100),estado VARCHAR(2),email VARCHAR(180),whatsapp VARCHAR(30));
-CREATE TABLE IF NOT EXISTS contato_personal(id BIGINT PRIMARY KEY AUTO_INCREMENT,usuario_id BIGINT NOT NULL,personal_id BIGINT NOT NULL,criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,UNIQUE KEY uk_contato_usuario_personal(usuario_id,personal_id),FOREIGN KEY(personal_id) REFERENCES personal(id));
-INSERT INTO personal(nome,titulo,modalidades,disponibilidade,cidade,estado,email,whatsapp) SELECT 'Personal de musculação','Musculação e condicionamento físico','musculação, condicionamento físico e funcional','segunda a sexta-feira','Curitiba','PR',NULL,NULL WHERE NOT EXISTS(SELECT 1 FROM personal WHERE titulo='Musculação e condicionamento físico');
-INSERT INTO personal(nome,titulo,modalidades,disponibilidade,cidade,estado,email,whatsapp) SELECT 'Personal de treinamento funcional','Treinamento funcional','funcional, mobilidade e bem-estar','terça, quinta e sábado','Curitiba','PR',NULL,NULL WHERE NOT EXISTS(SELECT 1 FROM personal WHERE titulo='Treinamento funcional');
-INSERT INTO personal(nome,titulo,modalidades,disponibilidade,cidade,estado,email,whatsapp) SELECT 'Personal de corrida','Corrida e resistência','corrida, resistência e preparação física','segunda, quarta e sexta-feira','Curitiba','PR',NULL,NULL WHERE NOT EXISTS(SELECT 1 FROM personal WHERE titulo='Corrida e resistência');
+IF OBJECT_ID(N'dbo.personal', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.personal (
+        id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        nome NVARCHAR(140) NOT NULL,
+        titulo NVARCHAR(180) NULL,
+        modalidades NVARCHAR(300) NULL,
+        disponibilidade NVARCHAR(180) NULL,
+        cidade NVARCHAR(100) NULL,
+        estado NVARCHAR(2) NULL,
+        email NVARCHAR(180) NULL,
+        whatsapp NVARCHAR(30) NULL
+    );
+END;
+IF OBJECT_ID(N'dbo.contato_personal', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.contato_personal (
+        id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        usuario_id BIGINT NOT NULL,
+        personal_id BIGINT NOT NULL,
+        criado_em DATETIME2 NOT NULL CONSTRAINT DF_contato_personal_criado DEFAULT SYSUTCDATETIME(),
+        CONSTRAINT UQ_contato_usuario_personal UNIQUE(usuario_id,personal_id),
+        CONSTRAINT FK_contato_personal_personal FOREIGN KEY(personal_id) REFERENCES dbo.personal(id)
+    );
+END;
+IF NOT EXISTS (SELECT 1 FROM dbo.personal WHERE titulo=N'Musculação e condicionamento físico')
+    INSERT INTO dbo.personal(nome,titulo,modalidades,disponibilidade,cidade,estado) VALUES(N'Personal de musculação',N'Musculação e condicionamento físico',N'musculação, condicionamento físico e funcional',N'segunda a sexta-feira',N'Curitiba',N'PR');
+IF NOT EXISTS (SELECT 1 FROM dbo.personal WHERE titulo=N'Treinamento funcional')
+    INSERT INTO dbo.personal(nome,titulo,modalidades,disponibilidade,cidade,estado) VALUES(N'Personal de treinamento funcional',N'Treinamento funcional',N'funcional, mobilidade e bem-estar',N'terça, quinta e sábado',N'Curitiba',N'PR');
+IF NOT EXISTS (SELECT 1 FROM dbo.personal WHERE titulo=N'Corrida e resistência')
+    INSERT INTO dbo.personal(nome,titulo,modalidades,disponibilidade,cidade,estado) VALUES(N'Personal de corrida',N'Corrida e resistência',N'corrida, resistência e preparação física',N'segunda, quarta e sexta-feira',N'Curitiba',N'PR');
