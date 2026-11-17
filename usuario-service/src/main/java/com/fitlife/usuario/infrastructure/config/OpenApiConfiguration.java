@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import org.springframework.context.annotation.Configuration;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @Configuration
 @OpenAPIDefinition(info = @Info(title = "FitLife Usuários API", version = "2.0.0", description = "Cadastro, autenticação e gestão do perfil do usuário."))
