@@ -190,4 +190,8 @@ Cada microsserviço possui README próprio com as 12 seções Arc42: introduçã
 
 ## Alunos
 
-Preencher com os nomes completos de todos os integrantes do grupo.
+- Amanda Milleo
+- Camila Araújo
+- Pedro Henrique Kleim Vieira
+- Riccardo Randazzo
+- Yuri Sobezak
